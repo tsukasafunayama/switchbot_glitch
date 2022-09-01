@@ -1,49 +1,90 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Blockly Demo: Fixed Blockly</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/8.0.5/blockly_compressed.js" integrity="sha512-U6ysM+VtDhfrndyjXCDVXuXAskc6bCHdDxhSGuW1t8SHt9OM5hxUNy/ItW9hR50kEJDC3uUtixxA45oHXOrVzg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/8.0.5/blocks_compressed.js" integrity="sha512-R+wdKUZMlJ4tYti/2K4XUScs/ta4Ob8SIuLeF1c/G9upC9HVguOJEk+0ZWPN4XJFS3QgrqPhJUyjR6XgbDwvSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/8.0.5/javascript_compressed.js" integrity="sha512-XLVAzu5DH1hBqseN7OwBlCuIyQOCg1pNgA0eoHn5Ht8H/oh6Z8AgLK9svOOwffzZe4ABsOGpijY+bF+n9XS40Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  
-  <script src="myblock.js"></script>
-  <style>
-    body {
-      background-color: #fff;
-      font-family: sans-serif;
-    }
-    h1 {
-      font-weight: normal;
-      font-size: 140%;
-    }
-  </style>
-</head>
-<body>
-  <h1><a href="https://developers.google.com/blockly/">Blockly</a> &gt;
-  <a href="../index.html">Karino　Demos</a> &gt; Fixed Blockly</h1>
-  <label for="token">switchbot トークン</label>
-  <input name="token">
+  <head>
+    <meta charset="utf-8" />
+    <title>Blockly Demo: Fixed Blockly</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/blockly/8.0.5/blockly_compressed.js"
+      integrity="sha512-U6ysM+VtDhfrndyjXCDVXuXAskc6bCHdDxhSGuW1t8SHt9OM5hxUNy/ItW9hR50kEJDC3uUtixxA45oHXOrVzg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/blockly/8.0.5/blocks_compressed.js"
+      integrity="sha512-R+wdKUZMlJ4tYti/2K4XUScs/ta4Ob8SIuLeF1c/G9upC9HVguOJEk+0ZWPN4XJFS3QgrqPhJUyjR6XgbDwvSA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/blockly/8.0.5/javascript_compressed.js"
+      integrity="sha512-XLVAzu5DH1hBqseN7OwBlCuIyQOCg1pNgA0eoHn5Ht8H/oh6Z8AgLK9svOOwffzZe4ABsOGpijY+bF+n9XS40Q=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
 
-  <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
-  <button onclick="doCode()">コードの実行</button>
-
-  <xml id="toolbox">
-    <block type="go_left"></block>
-  </xml>
-  <script>
-    var workspace = Blockly.inject('blocklyDiv',
-        {toolbox: document.getElementById('toolbox')});
-
-    function doCode(){
-      var code = Blockly.JavaScript.workspaceToCode(workspace);
-      try{
-        eval(code);
+    <script src="myblock.js"></script>
+    <style>
+      body {
+        background-color: #fff;
+        font-family: sans-serif;
       }
-      catch(e){
-        alert(e);
+      h1 {
+        font-weight: normal;
+        font-size: 140%;
       }
-    }
-  </script>
-</body>
+    </style>
+  </head>
+  <body>
+    <h1>
+      <a href="https://developers.google.com/blockly/">Blockly</a> &gt;
+      <a href="../index.html">Karino　Demos</a> &gt; Fixed Blockly
+      <br>
+      <a href="../index.html">Test add　Demos</a> &gt; Fixed Blockly
+      <br>
+      <a href="../index.html">Test add　Demos</a> &gt; Fixed Blockly
+    </h1>
+    <label for="token">switchbot トークン</label>
+    <input name="token" />
+    <button onclick="doCode()">switchbot request</button>
+
+    <div id="blocklyDiv" style="height: 480px; width: 600px"></div>
+    <button onclick="doCode()">コードの実行</button>
+
+    <xml id="toolbox">
+      <block type="go_left"></block>
+    </xml>
+    <script>
+      var workspace = Blockly.inject("blocklyDiv", {
+        toolbox: document.getElementById("toolbox"),
+      });
+
+      function doCode() {
+        var code = Blockly.JavaScript.workspaceToCode(workspace);
+        try {
+          eval(code);
+        } catch (e) {
+          alert(e);
+        }
+      }
+    </script>
+    <script>
+      const url = "https://api.switch-bot.com/v1.0/devices";
+
+// sending request
+fetch(url, {
+      method : 'GET',
+      mode: 'cors',
+      Authorization:'b5c9787157c59e254e96937094f4ad6ce16fd28f2a9f77596e6094d076581a60f7f4c4043b07643dce2615e348f1d639',
+      'Access-Control-Allow-Origin':'*'
+      }).then((response)=>{
+  return response.json();  // converting byte data to json
+}).then(data=>{
+  console.log(data);
+}).catch(error=>{
+    // logging error
+   console.log(error);
+})
+    </script>
+    
+  </body>
 </html>
